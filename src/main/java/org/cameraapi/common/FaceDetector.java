@@ -4,13 +4,18 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.opencv.core.MatOfByte;
 import org.opencv.core.MatOfRect;
+import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.objdetect.CascadeClassifier;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBuffer;
 import java.awt.image.DataBufferByte;
 import java.awt.image.DataBufferInt;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.Objects;
 
 public class FaceDetector {
@@ -30,7 +35,7 @@ public class FaceDetector {
     }
 
 
-
+    // Not ashamed to admit that I copied it without knowing how it works...
     public Mat matify(BufferedImage sourceImg) {
 
         DataBuffer dataBuffer = sourceImg.getRaster().getDataBuffer();
@@ -65,5 +70,18 @@ public class FaceDetector {
 
 
         return imgMat;
+    }
+
+    // I'm not ashamed for this one either
+    public static BufferedImage Mat2BufferedImage(Mat matrix) throws IOException {
+        MatOfByte mob=new MatOfByte();
+        Imgcodecs.imencode(".jpg", matrix, mob);
+        byte[] ba =mob.toArray();
+        return ImageIO.read(new ByteArrayInputStream(ba));
+    }
+
+
+    public Mat getImage() {
+        return image;
     }
 }
