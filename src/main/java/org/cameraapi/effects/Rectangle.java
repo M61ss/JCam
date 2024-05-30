@@ -1,23 +1,26 @@
 package org.cameraapi.effects;
 
 import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
 import org.cameraapi.common.FaceDetector;
 import org.opencv.core.*;
+import org.opencv.core.Point;
 import org.opencv.imgproc.Imgproc;
 
+import java.awt.*;
 import java.io.IOException;
 
 public class Rectangle {
     MatOfRect faces;
     FaceDetector faceDetector;
     Mat image;
-    ImageView display;
+    GraphicsContext display;
 
-    public Rectangle(MatOfRect faces, FaceDetector faceDetector, ImageView display) {
-        this.display = display;
-        this.faces = faces;
+    public Rectangle(FaceDetector faceDetector, GraphicsContext display) {
         this.faceDetector = faceDetector;
+        this.display = display;
+        faces = faceDetector.detectFaces();
         image = faceDetector.getImage();
         drawRect();
     }
@@ -31,7 +34,7 @@ public class Rectangle {
 
     public void markFaces(){
         try {
-            display.setImage(SwingFXUtils.toFXImage(FaceDetector.Mat2BufferedImage(image),null));
+            display.drawImage(SwingFXUtils.toFXImage(FaceDetector.Mat2BufferedImage(image),null),0,0);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

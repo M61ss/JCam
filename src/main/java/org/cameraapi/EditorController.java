@@ -6,18 +6,19 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point3D;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.DialogPane;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
+import org.cameraapi.common.FaceDetector;
+import org.cameraapi.effects.Rectangle;
 
 import java.io.IOException;
 
 
 public class EditorController {
+    @FXML
+    ToggleButton rectButton;
     @FXML
     Canvas imagePreview;
     @FXML
@@ -105,5 +106,11 @@ public class EditorController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @FXML
+    public void onRectButtonClicked() {
+        Rectangle rectangle = new Rectangle(new FaceDetector(imagePreview.snapshot(null,null)),imagePreview.getGraphicsContext2D());
+        rectangle.markFaces();
     }
 }
