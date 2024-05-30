@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class FaceDetector {
-    private final CascadeClassifier faceDetector = new CascadeClassifier();
+    private final CascadeClassifier faceDetector = new CascadeClassifier("haarcascade_frontalface_alt2.xml");
     private final Mat image;
 
     public FaceDetector(Image image) {
