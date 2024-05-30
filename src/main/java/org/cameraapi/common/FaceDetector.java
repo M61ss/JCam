@@ -36,7 +36,7 @@ public class FaceDetector {
 
 
     // Not ashamed to admit that I copied it without knowing how it works...
-    public Mat matify(BufferedImage sourceImg) {
+    public static Mat matify(BufferedImage sourceImg) {
 
         DataBuffer dataBuffer = sourceImg.getRaster().getDataBuffer();
         byte[] imgPixels = null;
