@@ -3,9 +3,10 @@ package org.cameraapi.common;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import org.bytedeco.opencv.opencv_core.RectVector;
-import org.bytedeco.opencv.opencv_objdetect.CascadeClassifier;
+
 import org.opencv.core.*;
 import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.objdetect.CascadeClassifier;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -28,9 +29,9 @@ public class FaceDetector {
     }
 
 
-    public RectVector detectFaces() {
-        RectVector detectedFaces = new RectVector();
-        faceDetector.detectMultiScale(image, detectedFaces, 1.1, 1, 0, new Size(150, 150), new Size(500, 500));
+    public MatOfRect detectFaces() {
+        MatOfRect detectedFaces = new MatOfRect();
+        faceDetector.detectMultiScale(image, detectedFaces);
         return detectedFaces;
     }
 
