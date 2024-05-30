@@ -22,7 +22,7 @@ public class FaceDetector {
     private final CascadeClassifier faceDetector = new CascadeClassifier();
     private final Mat image;
 
-    FaceDetector(Image image) {
+    public FaceDetector(Image image) {
         Objects.requireNonNull(image);
         this.image = matify(SwingFXUtils.fromFXImage(image, null));
     }
