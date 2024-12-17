@@ -7,10 +7,9 @@ import lombok.Setter;
 import org.jcam.lib.Enableable;
 import org.jcam.lib.Resettable;
 
+@Setter @Getter
 public abstract class Effect implements Enableable, Resettable {
     private boolean enabled;
-    @Getter
-    @Setter
     private boolean applied;
 
     public Effect() {
@@ -26,10 +25,6 @@ public abstract class Effect implements Enableable, Resettable {
     @Override
     public void disable() {
         enabled = false;
-    }
-
-    public boolean isDisabled() {
-        return !enabled;
     }
 
     @Override

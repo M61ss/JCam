@@ -150,7 +150,7 @@ public class HomeController {
     @FXML
     private void flipCamera() {
         LiveEffect flipEffect = Flip.getInstance();
-        if (flipEffect.isDisabled()) {
+        if (!flipEffect.isEnabled()) {
             throw new RuntimeException("Flip is currently disabled.");
         }
         flipEffect.apply(webcamImageView);
@@ -159,7 +159,7 @@ public class HomeController {
     @FXML
     private void freezeCamera() {
         Freeze freezeEffect = Freeze.getInstance();
-        if (freezeEffect.isDisabled()) {
+        if (!freezeEffect.isEnabled()) {
             throw new RuntimeException("Freeze is currently disabled.");
         }
         freezeEffect.apply(webcamImageView);
