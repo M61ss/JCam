@@ -8,7 +8,7 @@ import java.util.Map;
 public interface LiveEffectSingleton {
     Map<Class<? extends LiveEffect>, LiveEffect> uniqueInstances = new HashMap<>(); // Map already existing classes and their instances
 
-    static <T extends LiveEffect> LiveEffect getUniqueInstance(Class<T> effectClass) {
+    static <T extends LiveEffect> LiveEffect getInstance(Class<T> effectClass) {
         try {
             // Checks if the class instance has already being created
             if(uniqueInstances.get(effectClass) == null) {

@@ -1,7 +1,6 @@
 package org.jcam.controller;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Objects;
 
 import atlantafx.base.theme.CupertinoDark;
@@ -140,7 +139,7 @@ public class HomeController {
 
     @FXML
     private void flipCamera() {
-        LiveEffect flipEffect = LiveEffectSingleton.getUniqueInstance(Flip.class);
+        LiveEffect flipEffect = LiveEffectSingleton.getInstance(Flip.class);
         if (flipEffect.isDisabled()) {
             throw new RuntimeException("Flip is currently disabled.");
         }
@@ -149,7 +148,7 @@ public class HomeController {
 
     @FXML
     private void freezeCamera() {
-        LiveEffect freezeEffect = LiveEffectSingleton.getUniqueInstance(Freeze.class);
+        LiveEffect freezeEffect = LiveEffectSingleton.getInstance(Freeze.class);
         if (freezeEffect.isDisabled()) {
             throw new RuntimeException("Freeze is currently disabled.");
         }
@@ -189,7 +188,7 @@ public class HomeController {
 
         EditorController controller = loader.getController();
         controller.initCanvas(capture);
-        controller.initLiveEffects(LiveEffectSingleton.getUniqueInstance(Flip.class).isApplied());
+        controller.initLiveEffects(LiveEffectSingleton.getInstance(Flip.class).isApplied());
 
         RootController.changeRoot("editor");
     }
