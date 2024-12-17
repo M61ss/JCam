@@ -40,8 +40,6 @@ public class HomeController {
     private Image rawPicture;
     private Image currentPicture;
 
-    private HashMap<Class<? extends LiveEffect>, LiveEffect> liveEffects;
-
     @FXML
     private StackPane stackPane;
     @FXML
@@ -58,7 +56,6 @@ public class HomeController {
 
     public void initialize() {
         initTheme();
-        initLiveEffects();
         initWebcamChoiceBox();
         if (webcams.isEmpty()) {
             Platform.runLater(this::disableInterface);
@@ -115,27 +112,16 @@ public class HomeController {
         thread.startShowingFrame();
     }
 
-    private void initLiveEffects() {
-        liveEffects = new HashMap<>();
-        liveEffects.put(Flip.class, LiveEffectSingleton.getUniqueInstance(Flip.class));
-        liveEffects.put(Freeze.class, LiveEffectSingleton.getUniqueInstance(Freeze.class));
-
-        for (LiveEffect effect : liveEffects.values()) {
-            effect.enable();
-        }
-        liveEffects.get(Flip.class).apply(webcamImageView);
-    }
-
     public void disableInterface() {
         Parent root = stackPane.getScene().getRoot();
         root.disableProperty().setValue(true);
-        for (Effect effect : liveEffects.values()) {
+        for (Effect effect : LiveEffectSingleton.uniqueInstances.values()) {
             effect.disable();
         }
     }
 
     public void enableInterface() {
-        for (Effect effect : liveEffects.values()) {
+        for (Effect effect : LiveEffectSingleton.uniqueInstances.values()) {
             effect.enable();
         }
         Parent root = stackPane.getScene().getRoot();
@@ -154,19 +140,21 @@ public class HomeController {
 
     @FXML
     private void flipCamera() {
-        if (liveEffects.get(Flip.class).isDisabled()) {
+        LiveEffect flipEffect = LiveEffectSingleton.getUniqueInstance(Flip.class);
+        if (flipEffect.isDisabled()) {
             throw new RuntimeException("Flip is currently disabled.");
         }
-        liveEffects.get(Flip.class).apply(webcamImageView);
+        flipEffect.apply(webcamImageView);
     }
 
     @FXML
     private void freezeCamera() {
-        if (liveEffects.get(Freeze.class).isDisabled()) {
+        LiveEffect freezeEffect = LiveEffectSingleton.getUniqueInstance(Freeze.class);
+        if (freezeEffect.isDisabled()) {
             throw new RuntimeException("Freeze is currently disabled.");
         }
-        liveEffects.get(Freeze.class).apply(webcamImageView);
-        if (liveEffects.get(Freeze.class).isApplied()) {
+        freezeEffect.apply(webcamImageView);
+        if (freezeEffect.isApplied()) {
             Freeze.freeze(frameShowThread);
         } else {
             frameShowThread = Freeze.unfreeze(frameShowThread);
@@ -201,7 +189,7 @@ public class HomeController {
 
         EditorController controller = loader.getController();
         controller.initCanvas(capture);
-        controller.initLiveEffects(liveEffects.get(Flip.class).isApplied());
+        controller.initLiveEffects(LiveEffectSingleton.getUniqueInstance(Flip.class).isApplied());
 
         RootController.changeRoot("editor");
     }
