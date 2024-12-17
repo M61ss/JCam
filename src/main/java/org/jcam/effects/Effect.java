@@ -28,7 +28,6 @@ public abstract class Effect implements Enableable, Resettable {
         enabled = false;
     }
 
-    @Override
     public boolean isDisabled() {
         return !enabled;
     }
