@@ -1,15 +1,15 @@
 package org.jcam.effects;
 
 import javafx.scene.image.ImageView;
+import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
-import org.jcam.lib.Applicable;
-import org.jcam.lib.LiveEffectSingleton;
 import org.jcam.lib.Enableable;
 import org.jcam.lib.Resettable;
 
-public abstract class Effect implements Enableable, Applicable, Resettable {
+public abstract class Effect implements Enableable, Resettable {
     private boolean enabled;
+    @Getter
     @Setter
     private boolean applied;
 
@@ -29,20 +29,8 @@ public abstract class Effect implements Enableable, Applicable, Resettable {
     }
 
     @Override
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    @Override
     public boolean isDisabled() {
         return !enabled;
-    }
-
-    public abstract void apply(@NonNull ImageView imageAffected);
-
-    @Override
-    public boolean isApplied() {
-        return applied;
     }
 
     @Override

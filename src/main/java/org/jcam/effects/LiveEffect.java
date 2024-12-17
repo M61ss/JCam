@@ -1,5 +1,7 @@
 package org.jcam.effects;
 
+import javafx.scene.image.ImageView;
+import lombok.NonNull;
 import org.jcam.lib.LiveEffectSingleton;
 
 public abstract class LiveEffect extends Effect implements LiveEffectSingleton {
@@ -7,8 +9,5 @@ public abstract class LiveEffect extends Effect implements LiveEffectSingleton {
         super();
     }
 
-    @Override
-    public void apply() {
-        throw new IllegalCallerException("This method is unsupported by " + this.getClass().getName());
-    }
+    public abstract void apply(@NonNull ImageView imageAffected);
 }
