@@ -68,6 +68,7 @@ public class HomeController {
             initWebcam();
         }
         initLiveEffects();
+        Platform.runLater(this::enableInterface);
     }
 
     private void initTheme() {
@@ -101,7 +102,6 @@ public class HomeController {
                 }
             }
             Platform.runLater(this::initWebcam);
-            enableInterface();
             System.out.println("WebcamWaiter: webcam" + webcams.getFirst() + " found.");
         });
     }
