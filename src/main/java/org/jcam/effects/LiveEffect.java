@@ -8,6 +8,4 @@ public abstract class LiveEffect extends Effect implements LiveEffectSingleton {
     public LiveEffect() {
         super();
     }
-
-    public abstract void apply(@NonNull ImageView imageAffected);
 }
