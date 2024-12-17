@@ -1,14 +1,14 @@
 package org.jcam.lib;
 
-import org.jcam.effects.Effect;
+import org.jcam.effects.LiveEffect;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public interface EffectSingleton {
-    Map<Class<? extends Effect>, Effect> uniqueInstances = new HashMap<>(); // Map already existing classes and their instances
+public interface LiveEffectSingleton {
+    Map<Class<? extends LiveEffect>, LiveEffect> uniqueInstances = new HashMap<>(); // Map already existing classes and their instances
 
-    static <T extends Effect> T getUniqueInstance(Class<T> effectClass) {
+    static <T extends LiveEffect> LiveEffect getUniqueInstance(Class<T> effectClass) {
         try {
             // Checks if the class instance has already being created
             if(uniqueInstances.get(effectClass) == null) {

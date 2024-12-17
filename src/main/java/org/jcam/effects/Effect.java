@@ -4,14 +4,11 @@ import javafx.scene.image.ImageView;
 import lombok.NonNull;
 import lombok.Setter;
 import org.jcam.lib.Applicable;
-import org.jcam.lib.EffectSingleton;
+import org.jcam.lib.LiveEffectSingleton;
 import org.jcam.lib.Enableable;
 import org.jcam.lib.Resettable;
 
-import java.util.HashMap;
-import java.util.Map;
-
-public abstract class Effect implements Enableable, Applicable, Resettable, EffectSingleton {
+public abstract class Effect implements Enableable, Applicable, Resettable {
     private boolean enabled;
     @Setter
     private boolean applied;
