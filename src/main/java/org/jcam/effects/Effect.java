@@ -1,8 +1,6 @@
 package org.jcam.effects;
 
-import javafx.scene.image.ImageView;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 import org.jcam.lib.Enableable;
 import org.jcam.lib.Resettable;
