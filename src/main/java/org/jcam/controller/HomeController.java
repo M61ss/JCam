@@ -26,6 +26,7 @@ import javafx.fxml.FXML;
 
 import org.jcam.common.WebcamListener;
 import org.jcam.effects.*;
+import org.jcam.lib.EffectSingleton;
 import org.jcam.lib.WebcamUtils;
 
 import static java.lang.Thread.interrupted;
@@ -116,8 +117,8 @@ public class HomeController {
 
     private void initLiveEffects() {
         liveEffects = new HashMap<>();
-        liveEffects.put(Flip.class, Effect.getUniqueInstance(Flip.class));
-        liveEffects.put(Freeze.class, Effect.getUniqueInstance(Freeze.class));
+        liveEffects.put(Flip.class, EffectSingleton.getUniqueInstance(Flip.class));
+        liveEffects.put(Freeze.class, EffectSingleton.getUniqueInstance(Freeze.class));
 
         for (LiveEffect effect : liveEffects.values()) {
             effect.enable();

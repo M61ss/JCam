@@ -7,7 +7,7 @@ import lombok.NonNull;
 public class Flip extends LiveEffect {
     private static double rotationValue;
 
-    protected Flip() {
+    private Flip() {
         super();
         setApplied(true);
         rotationValue = 0.0;

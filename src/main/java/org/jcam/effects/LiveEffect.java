@@ -1,7 +1,7 @@
 package org.jcam.effects;
 
 public abstract class LiveEffect extends Effect {
-    protected LiveEffect() {
+    public LiveEffect() {
         super();
     }
 
