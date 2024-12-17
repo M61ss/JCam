@@ -1,6 +1,8 @@
 package org.jcam.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import atlantafx.base.theme.CupertinoDark;
@@ -25,7 +27,6 @@ import javafx.fxml.FXML;
 
 import org.jcam.common.WebcamListener;
 import org.jcam.effects.*;
-import org.jcam.lib.LiveEffectSingleton;
 import org.jcam.lib.WebcamUtils;
 
 import static java.lang.Thread.interrupted;
@@ -53,6 +54,8 @@ public class HomeController {
     @FXML
     private RadioButton stabilityTray;
 
+    private Map<Class<? extends LiveEffect>, LiveEffect> liveEffects;
+
     public void initialize() {
         initTheme();
         initWebcamChoiceBox();
@@ -64,6 +67,7 @@ public class HomeController {
         } else {
             initWebcam();
         }
+        initLiveEffects();
     }
 
     private void initTheme() {
@@ -111,17 +115,23 @@ public class HomeController {
         thread.startShowingFrame();
     }
 
+    private void initLiveEffects() {
+        liveEffects = new HashMap<>();
+        liveEffects.put(Flip.class, Flip.getInstance());
+        liveEffects.put(Freeze.class, Freeze.getInstance());
+    }
+
     public void disableInterface() {
         Parent root = stackPane.getScene().getRoot();
         root.disableProperty().setValue(true);
-        for (Effect effect : LiveEffectSingleton.uniqueInstances.values()) {
-            effect.disable();
+        for (LiveEffect liveEffect : liveEffects.values()) {
+            liveEffect.disable();
         }
     }
 
     public void enableInterface() {
-        for (Effect effect : LiveEffectSingleton.uniqueInstances.values()) {
-            effect.enable();
+        for (LiveEffect liveEffect : liveEffects.values()) {
+            liveEffect.enable();
         }
         Parent root = stackPane.getScene().getRoot();
         root.disableProperty().setValue(false);
@@ -139,7 +149,7 @@ public class HomeController {
 
     @FXML
     private void flipCamera() {
-        LiveEffect flipEffect = LiveEffectSingleton.getInstance(Flip.class);
+        LiveEffect flipEffect = Flip.getInstance();
         if (flipEffect.isDisabled()) {
             throw new RuntimeException("Flip is currently disabled.");
         }
@@ -148,7 +158,7 @@ public class HomeController {
 
     @FXML
     private void freezeCamera() {
-        LiveEffect freezeEffect = LiveEffectSingleton.getInstance(Freeze.class);
+        Freeze freezeEffect = Freeze.getInstance();
         if (freezeEffect.isDisabled()) {
             throw new RuntimeException("Freeze is currently disabled.");
         }
@@ -188,7 +198,7 @@ public class HomeController {
 
         EditorController controller = loader.getController();
         controller.initCanvas(capture);
-        controller.initLiveEffects(LiveEffectSingleton.getInstance(Flip.class).isApplied());
+        controller.initLiveEffects(Flip.getInstance().isApplied());
 
         RootController.changeRoot("editor");
     }

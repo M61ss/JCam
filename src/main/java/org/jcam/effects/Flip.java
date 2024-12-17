@@ -6,11 +6,19 @@ import lombok.NonNull;
 
 public class Flip extends LiveEffect {
     private static double rotationValue;
+    private static Flip uniqueInstance;
 
     private Flip() {
         super();
         setApplied(true);
         rotationValue = 0.0;
+    }
+
+    public static Flip getInstance() {
+        if (uniqueInstance == null) {
+            uniqueInstance = new Flip();
+        }
+        return uniqueInstance;
     }
 
     @Override

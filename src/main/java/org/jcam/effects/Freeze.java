@@ -13,8 +13,17 @@ import java.beans.ConstructorProperties;
 import java.util.Objects;
 
 public class Freeze extends LiveEffect {
-    protected Freeze() {
+    private static Freeze uniqueInstance;
+
+    private Freeze() {
         super();
+    }
+
+    public static Freeze getInstance() {
+        if (uniqueInstance == null) {
+            uniqueInstance = new Freeze();
+        }
+        return uniqueInstance;
     }
 
     @Override
