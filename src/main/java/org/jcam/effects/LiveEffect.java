@@ -1,6 +1,8 @@
 package org.jcam.effects;
 
-public abstract class LiveEffect extends Effect {
+import org.jcam.lib.Applicable;
+
+public abstract class LiveEffect extends Effect implements Applicable {
     public LiveEffect() {
         super();
     }

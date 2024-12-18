@@ -1,4 +1,9 @@
 package org.jcam.effects;
 
-public abstract class EditorEffect {
+import org.jcam.lib.Applicable;
+
+public abstract class EditorEffect extends Effect implements Applicable {
+    public EditorEffect() {
+        super();
+    }
 }

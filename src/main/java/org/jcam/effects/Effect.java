@@ -32,6 +32,4 @@ public abstract class Effect implements Enableable, Resettable {
         applied = false;
         enabled = true;
     }
-
-    public abstract void apply(@NonNull ImageView imageAffected);
 }
